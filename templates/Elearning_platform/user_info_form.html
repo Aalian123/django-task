@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+
+<!-- Signup Form-->
+<table style="border:1px solid black;">
+    <tr><th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+    </tr>
+    {% for inf in info %}
+    <tr>
+    <td>{{inf.first_name}}</td>
+    <td>{{inf.last_name}}</td>
+    <td>{{inf.email}}</td>
+    <td>{{inf.phone}}</td>
+        </tr>
+
+{% endfor %}
+</table>
+<br>
+<br>
+<br>
+<br>
+<!-- Displaying form created by Model Forms -->
+<form action="{% url 'Elearning_platform:create-user' %}" method="post" class="form" style="width:50%;margin:auto">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit">
+</form>
+
+</body>
+</html>
