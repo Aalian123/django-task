@@ -1,11 +1,15 @@
-from .models import User_info
+from .models import User_inherit
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
 
-# Creating model form of User_info model
-class UserForm(forms.ModelForm):
+class Inherited_form(forms.ModelForm):
     class Meta:
-        # To specify the model to be used to create form
-        model = User_info
-        # It includes all the fields of model
-        fields = '__all__'
+        model = User_inherit
+        fields = ['username', 'first_name', 'last_name', 'email', 'bio', 'address']
+
+
+class CreateUser(UserCreationForm):
+    class Meta:
+        model = User_inherit
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1']

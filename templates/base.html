@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .navbar{
+            background-color: black;
+            border-radius: 30px;
+          }
+            .navbar li{
+            float:right;
+            list-style: none;
+            margin: 20px 20px;
+        }
+        .navbar ul{
+            overflow: auto;
+            margin-right:30px;
+        }
+        .navbar li a{
+            padding: 3px 3px;
+            text-decoration: none;
+            color: white;
+        }
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <header>
+        <nav class="navbar">
+            <ul>
+                {% if user.is_authenticated %}
+                <li><a href="/logout">Logout</a></li>
+                <li><a href="/inherit">Adduser</a></li>
+                {% else %}
+                <li><a href="/inherit">Adduser</a></li>
+                <li><a href="/signup">SignUp</a></li>
+                <li><a href="/login">Login</a></li>
+
+
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+{% block content %} {% endblock%}
+</body>
+</html>

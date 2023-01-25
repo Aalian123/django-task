@@ -1,31 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<table style="border:1px solid black;">
-    <tr><th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-    </tr>
+{% extends "base.html" %}
+{% block content %}
+    <form action="/inherit/" method="post">
+        {% csrf_token %}
+        {% if form.as_p %}
+        {{form.as_p}}
+        <input type="submit">
+        {% endif %}
+    </form>
+<h1> This is : {{ request.user }}</h1>
 
-    <!-- getting info from view and displaying here -->
-    {% for inf in info %}
-    <tr>
-    <td>{{inf.first_name}}</td>
-    <td>{{inf.last_name}}</td>
-    <td>{{inf.email}}</td>
-    <td>{{inf.phone}}</td>
-        </tr>
-
-{% endfor %}
-</table>
-
-    <button><a href="/signup">SignUp</a></button><br>
-    <button><a href="/login">login</a></button><br>
-    <button><a href="/adduser">Add user</a></button><br>
-</body>
-</html>
+{% endblock %}

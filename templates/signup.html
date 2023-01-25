@@ -1,44 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="home.css">
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-<table style="border:1px solid black;">
-    <tr><th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-    </tr>
-    {% for inf in info %}
-    <tr>
-    <td>{{inf.first_name}}</td>
-    <td>{{inf.last_name}}</td>
-    <td>{{inf.email}}</td>
-    <td>{{inf.phone}}</td>
-        </tr>
+{% extends "base.html" %}
 
-{% endfor %}
-</table>
+{% block content %}
+{% load crispy_forms_tags %}
 <!-- Signup Form-->
-<form method="post" class="form" style="width:50%;margin:auto" action="/signup/">
+<form action="/signup/" method="post" class="form" style="width:50%;margin:auto" >
     {% csrf_token %}
-    <label>Id: </label>
-    <input type="text" class="f_name" name="id"><br><br>
-    <label>First Name: </label>
-    <input type="text" class="f_name" name="f_name"><br><br>
-    <label>Last Name: </label>
-    <input type="text" class="l_name" name="l_name"><br><br>
-    <label>Email: </label>
-    <input type="email" class="email" name="email"><br><br>
-    <label>Phone Number: </label>
-    <input type="text" class="phone" name="phone"><br><br>
-    <label>Password: </label>
-    <input type="password" class="pass" name="pass"><br><br>
+    {{form|crispy}}
     <input type="submit">
 </form>
-
-</body>
-</html>
+{% endblock %}
