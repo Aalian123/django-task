@@ -1,0 +1,53 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Asia/Karachi
+X-LIC-LOCATION:Asia/Karachi
+BEGIN:STANDARD
+TZOFFSETFROM:+0500
+TZOFFSETTO:+0500
+TZNAME:PKT
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Karachi:20230131T120000
+DTEND;TZID=Asia/Karachi:20230131T123000
+RRULE:FREQ=WEEKLY;BYDAY=FR,MO,TH,TU,WE
+DTSTAMP:20230130T124950Z
+ORGANIZER;CN=uzair@folium.ai:mailto:uzair@folium.ai
+UID:0bt1uihn8hv75vhjicasavo8bb@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=moeez.arif@folium.ai;X-NUM-GUESTS=0:mailto:moeez.arif@folium.ai
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=muhammad.fakhar@folium.ai;X-NUM-GUESTS=0:mailto:muhammad.fakhar@fol
+ ium.ai
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=aalian.ahmar@folium.ai;X-NUM-GUESTS=0:mailto:aalian.ahmar@folium.ai
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=arham.nadeem@folium.ai;X-NUM-GUESTS=0:mailto:arham.nadeem@folium.ai
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE
+ ;CN=uzair@folium.ai;X-NUM-GUESTS=0:mailto:uzair@folium.ai
+X-GOOGLE-CONFERENCE:https://meet.google.com/zix-otwf-csn
+X-MICROSOFT-CDO-OWNERAPPTID:1980531825
+CREATED:20230130T124949Z
+DESCRIPTION:During the Scrum\, the team will assign tasks and evaluate the 
+ last day's progress\, discuss any problems\, and plan.\n\n-::~:~::~:~:~:~:~
+ :~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~::~:~::-\nJoi
+ n with Google Meet: https://meet.google.com/zix-otwf-csn\nOr dial: (US) +1 
+ 715-600-0042 PIN: 376606764#\nMore phone numbers: https://tel.meet/zix-otwf
+ -csn?pin=5315550378370&hs=7\n\nLearn more about Meet at: https://support.go
+ ogle.com/a/users/answer/9282720\n\nPlease do not edit this section.\n-::~:~
+ ::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~::
+ ~:~::-
+LAST-MODIFIED:20230130T124949Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Daily Scrum - Development Team
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

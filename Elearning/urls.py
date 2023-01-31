@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+# from Elearning_platform.views import Admin
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', Admin.as_view(), name='admin'),
+    path('admin/', admin.site.urls, name='admin'),
     path('', include('Elearning_platform.urls'), name='elearning'),
 ]

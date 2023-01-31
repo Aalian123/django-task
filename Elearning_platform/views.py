@@ -1,8 +1,20 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
+from django.utils.decorators import method_decorator
 from django.template import TemplateDoesNotExist
 from .forms import CreateUser
+from .decoraters import authenticate_user, is_staff_or_superuser
+
+
+# class Admin(View):
+#     @method_decorator(is_staff_or_superuser)
+#     def get(self, request):
+#         return HttpResponse('YOU ARE NOT AUTHORIZED TO ACCESS THIS PAGE')
+#
+#     #@method_decorator(is_staff_or_superuser)
+#     def post(self, request):
+#         return redirect('/admin/')
 
 
 # creating view for home page
@@ -24,8 +36,9 @@ class Home(View):
 # creating view for Signup page
 class Signup(View):
     # handling get requests
-    def get(self, request):
 
+    @method_decorator(authenticate_user)
+    def get(self, request):
         try:
             form = CreateUser()
             return render(request, 'signup.html', {'form': form})
@@ -41,12 +54,13 @@ class Signup(View):
             form.save()
             return redirect('/login/')
         else:
-            return HttpResponse('Can not add users')
+            return HttpResponse(form.error_messages)
 
 
 # creating view for login page
 class Login(View):
     # handling get requests
+    @method_decorator(authenticate_user)
     def get(self, request):
         try:
             return render(request, 'login.html')
@@ -60,7 +74,10 @@ class Login(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/')
+            if user.is_superuser:
+                return redirect('/admin/')
+            else:
+                return redirect('/')
         else:
             return HttpResponse('Username or password Incorrect')
 
