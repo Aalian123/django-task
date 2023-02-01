@@ -2,12 +2,15 @@ from django.db import models
 from django.apps import apps
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser, UserManager
+from django.utils.translation import gettext_lazy as _
 
 
 class UserManager(UserManager):
     use_in_migrations = True
 
     def _create_user(self, email, password, **extra_fields):
+        import pdb
+        pdb.set_trace()
         """
         Create and save a user with the given username, email, and password.
         """
@@ -20,7 +23,7 @@ class UserManager(UserManager):
         GlobalUserModel = apps.get_model(
             self.model._meta.app_label, self.model._meta.object_name
         )
-        email = GlobalUserModel.normalize_email(email)
+
         user = self.model(email=email, **extra_fields)
         user.password = make_password(password)
         user.save(using=self._db)
@@ -54,8 +57,11 @@ class User_inherit(AbstractUser):
     REQUIRED_FIELDS = []
 
     def clean(self):
+        super().clean()
         if self.first_name is None:
             self.first_name = self.last_name
+
+        self.email = self.__class__.objects.normalize_email(self.email)
 
     class Meta:
         verbose_name_plural = 'user_info'
@@ -64,15 +70,13 @@ class User_inherit(AbstractUser):
 # Course model
 class Teacher(User_inherit):
     teacher_id = models.BigAutoField(primary_key=True)
-    teacher_name = models.CharField(max_length=200)
     speciality = models.CharField(max_length=200)
 
     class Meta:
         verbose_name_plural = 'Teacher'
 
-    # USERNAME_FIELD = 'teacher_id'
     def __str__(self):
-        return self.teacher_name
+        return f"{self.first_name} {self.last_name}"
 
 
 # Course model
@@ -91,27 +95,18 @@ class Course(models.Model):
     class Meta:
         verbose_name_plural = 'Course'
 
-    
+    def __str__(self):
+        return f"{self.course_name}--{self.teacher_name}"
 
 
 # student model
 class Student(User_inherit):
     student_id = models.BigAutoField(primary_key=True)
-    student_name = models.CharField(max_length=200)
-    course = models.ManyToManyField(Course, through="StudentCourse", max_length=200)
-    teacher = models.ManyToManyField(Teacher, through="StudentTeacher", max_length=200)
+    course = models.ManyToManyField(Course, max_length=200)
 
     class Meta:
         verbose_name_plural = 'Student'
 
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
-# Many to Many b/w Student and Course
-class StudentCourse(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, to_field="student_id")
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, to_field="course_id")
-
-
-# Many to Many b/w Student and Teacher
-class StudentTeacher(models.Model):
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, to_field="teacher_id")
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, to_field="student_id")

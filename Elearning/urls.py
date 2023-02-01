@@ -18,7 +18,6 @@ from django.urls import path, include
 # from Elearning_platform.views import Admin
 
 urlpatterns = [
-    # path('admin/', Admin.as_view(), name='admin'),
     path('admin/', admin.site.urls, name='admin'),
     path('', include('Elearning_platform.urls'), name='elearning'),
 ]
