@@ -3,7 +3,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 <!-- Signup Form-->
-<form action="/signup/" method="post" class="form" style="width:50%;margin:auto" >
+<form action="/signup/" method="post" class="form" style="width:50%;margin:auto">
     {% csrf_token %}
     {{form|crispy}}
     <input type="submit">

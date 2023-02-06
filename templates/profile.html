@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<body>
+
+<form action="/profile/" method="post" style="width:50%;margin:auto">
+    {% csrf_token %}
+    {{profile_formset|crispy}}
+    <input type="submit">
+</form>
+
+
+</body>
+{% endblock %}

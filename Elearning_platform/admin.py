@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import User_inherit, Teacher, Course, Student
+
+from .models import User_inherit, Teacher, Course, Student, CronJob
 
 
 # Register your models here.
@@ -24,7 +25,7 @@ class Signup_variables(admin.ModelAdmin):
 class TeacherForm(admin.ModelAdmin):
     list_display = ['first_name', 'last_name', 'speciality']
     list_filter = ('first_name', 'speciality')
-    search_fields = ('first_name', 'speciality')
+    search_fields = ('first_name', 'last_name', 'speciality')
     fieldsets = (
         ('Teacher Info', {
             'fields': ('first_name', 'last_name', 'email', 'password',)
@@ -47,13 +48,16 @@ class StudentForm(admin.ModelAdmin):
     )
 
 
+class Cron(admin.ModelAdmin):
+    list_display = ['name', 'time']
+
+
 class CourseForm(admin.ModelAdmin):
     list_display = ['course_name', 'course_category', 'teacher_name']
 
 
-# admin.site.register(User_info, Signup_variables)
 admin.site.register(User_inherit, Signup_variables)
 admin.site.register(Teacher, TeacherForm)
 admin.site.register(Course, CourseForm)
 admin.site.register(Student, StudentForm)
-
+admin.site.register(CronJob, Cron)

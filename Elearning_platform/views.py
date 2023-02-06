@@ -1,20 +1,11 @@
-from django.shortcuts import render, HttpResponse, redirect
-from django.views import View
 from django.contrib.auth import authenticate, login, logout
-from django.utils.decorators import method_decorator
+from django.shortcuts import render, HttpResponse, redirect
 from django.template import TemplateDoesNotExist
-from .forms import CreateUser
-from .decoraters import authenticate_user, is_staff_or_superuser
+from django.utils.decorators import method_decorator
+from django.views import View
 
-
-# class Admin(View):
-#     @method_decorator(is_staff_or_superuser)
-#     def get(self, request):
-#         return HttpResponse('YOU ARE NOT AUTHORIZED TO ACCESS THIS PAGE')
-#
-#     #@method_decorator(is_staff_or_superuser)
-#     def post(self, request):
-#         return redirect('/admin/')
+from .decoraters import authenticate_user, login_required
+from .forms import CreateUser, EditUserProfile
 
 
 # creating view for home page
@@ -54,7 +45,7 @@ class Signup(View):
             form.save()
             return redirect('/login/')
         else:
-            return HttpResponse(form.error_messages)
+            return HttpResponse(f"{form.errors}")
 
 
 # creating view for login page
@@ -69,9 +60,9 @@ class Login(View):
 
     # handling post requests
     def post(self, request):
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
             if user.is_superuser:
@@ -80,6 +71,25 @@ class Login(View):
                 return redirect('/')
         else:
             return HttpResponse('Username or password Incorrect')
+
+
+# Creating Edit profile view
+class User_profile(View):
+
+    @method_decorator(login_required)
+    def get(self, request):
+        uid = request.user
+        edit_profile = EditUserProfile(instance=uid)
+        return render(request, 'profile.html', {'profile_formset': edit_profile})
+
+    @method_decorator(login_required)
+    def post(self, request):
+        uid = request.user
+        edit_profile_form = EditUserProfile(request.POST, instance=uid)
+        if edit_profile_form.is_valid():
+            edit_profile_form.save()
+            return redirect('/login/')
+        return render(request, '/profile/')
 
 
 # Creating view for logout
